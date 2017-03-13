@@ -36,6 +36,9 @@ class MDP:
         c = -1
         while(1):
             c += 1
+            print
+            print "=================Iteration",c+1,"====================="
+            print
             delta = 0
             u = [[self.utility[i][j] for j in range(4)]for i in range(4)]
             for i in [3,2,1,0]:
@@ -44,113 +47,177 @@ class MDP:
                     if (self.grid[i][j] == 'n' or self.grid[i][j] == 'p' or self.grid[i][j] == 'w'):
                         continue
                     #self.utility[i][j] = self.reward
-                    max_val = -100 
+                    max_val = -100
+                    print 
+                    print "Cell:(", i, ",", j,")" 
+                    print
                     for l in actions:
-                        
+                        prnt = ""
+                        fl = 0
                         if  l == "up":
+                            fl = 1
+                            #prnt = ""
                             temp = 0
                             #print "hi"
                             if i-1 < 0:
                                 temp += 0.8 * u[i][j]
+                                prnt += "0.8*"+str(u[i][j])+"+"
                             else:
                                 if self.grid[i-1][j] == 'w':
                                     temp += 0.8 * u[i][j]
+                                    prnt += "0.8*"+str(u[i][j])+"+"
                                 else:
                                     temp += 0.8 * u[i-1][j]
+                                    prnt += "0.8*"+str(u[i-1][j])+"+"
                             if j-1 < 0:
                                 temp += 0.1 * u[i][j]
+                                prnt += "0.1*"+str(u[i][j])+"+"
                             else:
                                 if self.grid[i][j-1] == 'w':
                                     temp += 0.1 * u[i][j]
+                                    prnt += "0.1*"+str(u[i][j])+"+"
                                 else:
                                     temp += 0.1 * u[i][j-1]
+                                    prnt += "0.1*"+str(u[i][j-1])+"+"
                             if j+1 > 3:
                                 temp += 0.1 * u[i][j]
+                                prnt += "0.1*"+str(u[i][j])
                             else:
                                 if self.grid[i][j+1] == 'w':
                                     temp += 0.1 * u[i][j]
+                                    prnt += "0.1*"+str(u[i][j])
                                 else:
                                     temp += 0.1 * u[i][j+1]
+                                    prnt += "0.1*"+str(u[i][j+1])
                             if temp > max_val:
                                 max_val = temp
+                            #print "North ->",prnt
                         
                         if  l == "down":
+                            #prnt = ""
+                            fl = 2
                             temp = 0
                             if i+1 > 3:
                                 temp += 0.8 * u[i][j]
+                                prnt += "0.8*"+str(u[i][j])+"+"
                             else:
                                 if self.grid[i+1][j] == 'w':
                                     temp += 0.8 * u[i][j]
+                                    prnt += "0.8*"+str(u[i][j])+"+"
                                 else:
                                     temp += 0.8 * u[i+1][j]
+                                    prnt += "0.8*"+str(u[i+1][j])+"+"
                             if j-1 < 0:
                                 temp += 0.1 * u[i][j]
+                                prnt += "0.8*"+str(u[i][j])+"+"
                             else:
                                 if self.grid[i][j-1] == 'w':
                                     temp += 0.1 * u[i][j]
+                                    prnt += "0.8*"+str(u[i][j])+"+"
                                 else:
                                     temp += 0.1 * u[i][j-1]
+                                    prnt += "0.8*"+str(u[i][j-1])+"+"
                             if j+1 > 3:
                                 temp += 0.1 * u[i][j]
+                                prnt += "0.8*"+str(u[i][j])
                             else:
                                 if self.grid[i][j+1] == 'w':
                                     temp += 0.1 * u[i][j]
+                                    prnt += "0.8*"+str(u[i][j])
                                 else:
                                     temp += 0.1 * u[i][j+1]
+                                    prnt += "0.8*"+str(u[i][j+1])
                             if temp > max_val:
-                                max_val = temp  
+                                max_val = temp 
+                            #rint "South -> ",prnt 
                         
                         if  l == "left":
+                            #prnt = ""
+                            fl = 3
                             temp = 0
                             if j-1 < 0:
                                 temp = 0.8 * u[i][j]
+                                prnt += "0.8*"+str(u[i][j])+"+" 
                             else:
                                 if self.grid[i][j-1] == 'w':
                                     temp += 0.8 * u[i][j]
+                                    prnt += "0.8*"+str(u[i][j])+"+" 
                                 else:
                                     temp += 0.8 * u[i][j-1]
+                                    prnt += "0.8*"+str(u[i][j-1])+"+" 
                             if i-1 < 0:
                                 temp += 0.1 * u[i][j]
+                                prnt += "0.8*"+str(u[i][j])+"+"
                             else:
                                 if self.grid[i-1][j] == 'w':
                                     temp += 0.1 * u[i][j]
+                                    prnt += "0.8*"+str(u[i][j])+"+" 
                                 else:
                                     temp += 0.1 * u[i-1][j]
+                                    prnt += "0.8*"+str(u[i-1][j])+"+"
                             if i+1 > 3:
                                 temp += 0.1 * u[i][j]
+                                prnt += "0.8*"+str(u[i][j]) 
                             else:
                                 if self.grid[i+1][j] == 'w':
                                     temp += 0.1 * u[i][j]
+                                    prnt += "0.8*"+str(u[i][j]) 
                                 else:
                                     temp += 0.1 * u[i+1][j]
+                                    prnt += "0.8*"+str(u[i+1][j])
                             if temp > max_val:
                                 max_val = temp   
+                            #print "West ->",prnt
+                            
                         
                         if  l == "right":
+                            #prnt  = ""
+                            fl = 4
                             temp = 0
                             if j+1 > 3:
                                 temp = 0.8 * u[i][j]
+                                prnt += "0.8*"+str(u[i][j])+"+" 
                             else:
                                 if self.grid[i][j+1] == 'w':
                                     temp += 0.8 * u[i][j]
+                                    prnt += "0.8*"+str(u[i][j])+"+" 
                                 else:
                                     temp += 0.8 * u[i][j+1]
+                                    prnt += "0.8*"+str(u[i][j+1])+"+" 
                             if i-1 < 0:
                                 temp += 0.1 * u[i][j]
+                                prnt += "0.1*"+str(u[i][j])+"+"
                             else:
                                 if self.grid[i-1][j] == 'w':
                                     temp += 0.1 * u[i][j]
+                                    prnt += "0.1*"+str(u[i][j])+"+" 
                                 else:
                                     temp += 0.1 * u[i-1][j]
+                                    prnt += "0.1*"+str(u[i-1][j])+"+" 
                             if i+1 > 3:
                                 temp += 0.1 * u[i][j]
+                                prnt += "0.8*"+str(u[i][j]) 
                             else:
                                 if self.grid[i+1][j] == 'w':
                                     temp += 0.1 * u[i][j]
+                                    prnt += "0.8*"+str(u[i][j]) 
                                 else:
                                     temp += 0.1 * u[i+1][j]
+                                    prnt += "0.8*"+str(u[i+1][j])
                             if temp > max_val:
                                 max_val = temp  
+                           # print "East ->", prnt
+                        if fl == 1:
+                            print "North - > ", self.reward," + [", prnt,"]"
+                        elif fl == 2:
+                            print "South - > ", self.reward," + [", prnt,"]"
+                        elif fl == 3:
+                            print "West - > ", self.reward," + [", prnt,"]"
+                        else:
+                            print "East - > ", self.reward," + [", prnt,"]"
+                        print "Util: ", temp + self.reward
+                        print
+                        fl = 0
 
                     self.utility[i][j] = self.reward + (self.gamma * max_val)
 
